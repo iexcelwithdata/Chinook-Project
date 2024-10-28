@@ -1,4 +1,4 @@
-# Chinook Music Store Analysis
+ # Chinook Music Store Analysis
 
 ## Overview
 This project leverages the **Chinook Music Store** dataset to conduct a range of data analyses aimed at understanding customer behavior, album and track associations, and sales trends. It features analyses using **Customer Lifetime Value (CLV)** and **Market Basket Analysis** methodologies, with SQL and Python for data processing and Power BI for dynamic visualizations.
@@ -39,7 +39,7 @@ The primary goals of this project are:
    ```bash
    git clone https://github.com/yourusername/Chinook-Music-Store-Analysis.git
 
-##P roject Structure
+## Project Structure
 data/: Contains the Chinook database and any necessary CSV files.
 scripts/: Python and SQL scripts for data processing.
 visualizations/: Power BI files and exported images of key insights.
