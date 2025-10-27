@@ -13,7 +13,7 @@ The goal was to **uncover what drives customer purchases, predict customer value
 
 This project bridges the gap between **data analytics and business strategy**, showing how insights can translate directly into measurable impact.  
 
-![Executive Summary](./images/Executive%20Summary.png)
+![Executive Summary](./images/Exceutive%20Summary.png)
 
 ---
 
@@ -27,8 +27,6 @@ The music retailer was facing stagnating revenue and declining customer engageme
 - How can we retain and upsell high-value customers?  
 
 These questions guided the analysis that followed.  
-
-![Music Analytics Dashboard Icon](https://cdn-icons-png.flaticon.com/512/3771/3771369.png)
 
 ---
 
