@@ -1,0 +1,295 @@
+-- ============================================
+-- CHINOOK DATABASE ANALYSIS - SQL QUERIES
+-- ============================================
+
+-- ============================================
+-- 1. TOP-SELLING ARTISTS
+-- ============================================
+CREATE TABLE TopSellingArtist AS
+SELECT 
+    ar.Name AS Artist_Name,
+    COUNT(DISTINCT ii.InvoiceId) AS Total_Sales,
+    SUM(ii.Quantity) AS Total_Tracks_Sold,
+    ROUND(SUM(ii.UnitPrice * ii.Quantity), 2) AS Total_Revenue,
+    ROUND(AVG(ii.UnitPrice * ii.Quantity), 2) AS Avg_Revenue_Per_Sale,
+    strftime('%Y', i.InvoiceDate) AS Year
+FROM 
+    artists ar
+JOIN albums al ON ar.ArtistId = al.ArtistId
+JOIN tracks t ON al.AlbumId = t.AlbumId
+JOIN invoice_items ii ON t.TrackId = ii.TrackId
+JOIN invoices i ON ii.InvoiceId = i.InvoiceId
+GROUP BY 
+    ar.Name, strftime('%Y', i.InvoiceDate)
+ORDER BY 
+    Total_Revenue DESC, Year;
+
+-- ============================================
+-- 2. CUSTOMER PURCHASE PATTERNS & SEGMENTATION
+-- ============================================
+CREATE TABLE CustomerPurchasePattern AS
+SELECT 
+    c.CustomerId,
+    c.FirstName || ' ' || c.LastName AS Customer_Name,
+    c.Country,
+    c.Email,
+    COUNT(DISTINCT i.InvoiceId) AS Total_Purchases,
+    ROUND(SUM(i.Total), 2) AS Total_Spent,
+    ROUND(AVG(i.Total), 2) AS Avg_Order_Value,
+    COUNT(DISTINCT ii.TrackId) AS Unique_Tracks_Purchased,
+    strftime('%Y-%m-%d', MIN(i.InvoiceDate)) AS First_Purchase_Date,
+    strftime('%Y-%m-%d', MAX(i.InvoiceDate)) AS Last_Purchase_Date,
+    CASE 
+        WHEN SUM(i.Total) >= 45 THEN 'High-Value'
+        WHEN SUM(i.Total) >= 25 THEN 'Medium-Value'
+        ELSE 'Low-Value'
+    END AS Customer_Segment
+FROM 
+    customers c
+JOIN invoices i ON c.CustomerId = i.CustomerId
+JOIN invoice_items ii ON i.InvoiceId = ii.InvoiceId
+GROUP BY 
+    c.CustomerId, c.FirstName, c.LastName, c.Country, c.Email
+ORDER BY 
+    Total_Spent DESC;
+
+-- ============================================
+-- 3. GENRE POPULARITY
+-- ============================================
+CREATE TABLE GenrePopularity AS
+SELECT 
+    g.Name AS Genre_Name,
+    strftime('%Y', i.InvoiceDate) AS Year,
+    COUNT(DISTINCT ii.InvoiceId) AS Total_Sales,
+    ROUND(SUM(ii.UnitPrice * ii.Quantity), 2) AS Total_Revenue,
+    ROUND(AVG(ii.UnitPrice * ii.Quantity), 2) AS Avg_Revenue_Per_Sale,
+    COUNT(DISTINCT c.CustomerId) AS Unique_Customers
+FROM 
+    genres g
+JOIN tracks t ON g.GenreId = t.GenreId
+JOIN invoice_items ii ON t.TrackId = ii.TrackId
+JOIN invoices i ON ii.InvoiceId = i.InvoiceId
+JOIN customers c ON i.CustomerId = c.CustomerId
+GROUP BY 
+    g.Name, strftime('%Y', i.InvoiceDate)
+ORDER BY 
+    Total_Revenue DESC, Year;
+
+-- ============================================
+-- 4. SALES OVER TIME (Monthly & Yearly Trends)
+-- ============================================
+CREATE TABLE Sales AS
+SELECT 
+    strftime('%Y', InvoiceDate) AS Year,
+    strftime('%m', InvoiceDate) AS Month,
+    strftime('%Y-%m', InvoiceDate) AS Year_Month,
+    COUNT(DISTINCT InvoiceId) AS Total_Transactions,
+    ROUND(SUM(Total), 2) AS Total_Revenue,
+    ROUND(AVG(Total), 2) AS Avg_Transaction_Value
+FROM 
+    invoices
+GROUP BY 
+    strftime('%Y', InvoiceDate), 
+    strftime('%m', InvoiceDate)
+ORDER BY 
+    Year, Month;
+
+-- ============================================
+-- 5. CUSTOMER LIFETIME VALUE (CLV)
+-- ============================================
+CREATE TABLE CustomerLifetimeValue AS
+SELECT 
+    c.CustomerId,
+    c.FirstName || ' ' || c.LastName AS Customer_Name,
+    c.Email,
+    c.Country,
+    c.City,
+    c.Company,
+    COUNT(DISTINCT i.InvoiceId) AS Total_Orders,
+    ROUND(SUM(i.Total), 2) AS Customer_Lifetime_Value,
+    ROUND(AVG(i.Total), 2) AS Avg_Order_Value,
+    ROUND(SUM(i.Total) / COUNT(DISTINCT i.InvoiceId), 2) AS Revenue_Per_Order,
+    strftime('%Y-%m-%d', MIN(i.InvoiceDate)) AS First_Purchase,
+    strftime('%Y-%m-%d', MAX(i.InvoiceDate)) AS Last_Purchase,
+    ROUND(JULIANDAY(MAX(i.InvoiceDate)) - JULIANDAY(MIN(i.InvoiceDate))) AS Customer_Lifespan_Days
+FROM 
+    customers c
+JOIN invoices i ON c.CustomerId = i.CustomerId
+GROUP BY 
+    c.CustomerId, c.FirstName, c.LastName, c.Email, c.Country, c.City, c.Company
+ORDER BY 
+    Customer_Lifetime_Value DESC;
+
+-- ============================================
+-- 6. MARKET BASKET ANALYSIS (MBA) - TRACKS
+-- ============================================
+-- Step 1: Create Transaction List
+CREATE TABLE Transaction_List AS
+SELECT 
+    ii.InvoiceId,
+    t.TrackId,
+    t.Name AS Track_Name
+FROM 
+    invoice_items ii
+JOIN tracks t ON ii.TrackId = t.TrackId;
+
+-- Step 2: Market Basket Analysis for Tracks
+CREATE TABLE MBA_Track AS
+WITH CTE AS (
+    SELECT 
+        T1.Track_Name AS Antecedent, 
+        T2.Track_Name AS Consequence, 
+        COUNT(DISTINCT T1.InvoiceId) AS Frequency, 
+        (SELECT COUNT(DISTINCT InvoiceId) FROM Transaction_List) AS Total_Transactions,
+        (SELECT COUNT(DISTINCT InvoiceId) FROM Transaction_List T
+         WHERE T1.Track_Name = T.Track_Name) AS Frequency_Track1,
+        (SELECT COUNT(DISTINCT InvoiceId) FROM Transaction_List T
+         WHERE T2.Track_Name = T.Track_Name) AS Frequency_Track2
+    FROM 
+        Transaction_List T1 
+    JOIN 
+        Transaction_List T2 
+    ON 
+        T1.InvoiceId = T2.InvoiceId
+    WHERE 
+        T1.Track_Name > T2.Track_Name
+    GROUP BY 
+        T1.Track_Name, T2.Track_Name
+)
+SELECT 
+    Antecedent, 
+    Consequence, 
+    Frequency,
+    ROUND(CAST(Frequency AS FLOAT) * 100.0 / Total_Transactions, 3) AS Support,
+    ROUND(CAST(Frequency AS FLOAT) / CAST(Frequency_Track1 AS FLOAT), 3) AS Confidence,
+    ROUND(
+        (CAST(Frequency AS FLOAT) / Total_Transactions) / 
+        ((CAST(Frequency_Track1 AS FLOAT) / Total_Transactions) * 
+         (CAST(Frequency_Track2 AS FLOAT) / Total_Transactions)), 3
+    ) AS Lift
+FROM CTE
+WHERE Frequency >= 2 AND Lift >= 1
+ORDER BY Frequency DESC, Lift DESC;
+
+-- ============================================
+-- 7. MARKET BASKET ANALYSIS - ALBUMS
+-- ============================================
+-- Step 1: Create Album Transaction List
+CREATE TABLE Album_Transaction_List AS
+SELECT 
+    ii.InvoiceId,
+    al.AlbumId,
+    al.Title AS Album_Name
+FROM 
+    invoice_items ii
+JOIN tracks t ON ii.TrackId = t.TrackId
+JOIN albums al ON t.AlbumId = al.AlbumId;
+
+-- Step 2: Market Basket Analysis for Albums
+CREATE TABLE MBA_Albums AS
+WITH CTE AS (
+    SELECT 
+        A1.Album_Name AS Antecedent, 
+        A2.Album_Name AS Consequence, 
+        COUNT(DISTINCT A1.InvoiceId) AS Frequency,
+        (SELECT COUNT(DISTINCT InvoiceId) FROM Album_Transaction_List) AS Total_Transactions,
+        (SELECT COUNT(DISTINCT InvoiceId) FROM Album_Transaction_List A
+         WHERE A1.Album_Name = A.Album_Name) AS Frequency_Album1,
+        (SELECT COUNT(DISTINCT InvoiceId) FROM Album_Transaction_List A
+         WHERE A2.Album_Name = A.Album_Name) AS Frequency_Album2
+    FROM 
+        Album_Transaction_List A1 
+    JOIN 
+        Album_Transaction_List A2 
+    ON 
+        A1.InvoiceId = A2.InvoiceId
+    WHERE 
+        A1.Album_Name > A2.Album_Name
+    GROUP BY 
+        A1.Album_Name, A2.Album_Name
+)
+SELECT 
+    Antecedent, 
+    Consequence, 
+    Frequency,
+    ROUND(CAST(Frequency AS FLOAT) * 100.0 / Total_Transactions, 3) AS Support,
+    ROUND(CAST(Frequency AS FLOAT) / CAST(Frequency_Album1 AS FLOAT), 3) AS Confidence,
+    ROUND(
+        (CAST(Frequency AS FLOAT) / Total_Transactions) / 
+        ((CAST(Frequency_Album1 AS FLOAT) / Total_Transactions) * 
+         (CAST(Frequency_Album2 AS FLOAT) / Total_Transactions)), 3
+    ) AS Lift
+FROM CTE
+WHERE Frequency >= 2 AND Lift >= 1
+ORDER BY Frequency DESC, Lift DESC;
+
+-- ============================================
+-- 8. RFM ANALYSIS (Recency, Frequency, Monetary)
+-- ============================================
+CREATE TABLE RecencyFrequencyMonetary AS
+WITH CustomerRFM AS (
+    SELECT 
+        c.CustomerId,
+        c.FirstName || ' ' || c.LastName AS Customer_Name,
+        c.Country,
+        ROUND(JULIANDAY('2013-12-31') - JULIANDAY(MAX(i.InvoiceDate))) AS Recency,
+        COUNT(DISTINCT i.InvoiceId) AS Frequency,
+        ROUND(SUM(i.Total), 2) AS Monetary
+    FROM 
+        customers c
+    JOIN invoices i ON c.CustomerId = i.CustomerId
+    GROUP BY 
+        c.CustomerId, c.FirstName, c.LastName, c.Country
+)
+SELECT 
+    CustomerId,
+    Customer_Name,
+    Country,
+    Recency,
+    Frequency,
+    Monetary,
+    NTILE(5) OVER (ORDER BY Recency DESC) AS R_Score,
+    NTILE(5) OVER (ORDER BY Frequency ASC) AS F_Score,
+    NTILE(5) OVER (ORDER BY Monetary ASC) AS M_Score,
+    (NTILE(5) OVER (ORDER BY Recency DESC) || NTILE(5) OVER (ORDER BY Frequency ASC) || NTILE(5) OVER (ORDER BY Monetary ASC)) AS RFM_Score
+FROM CustomerRFM
+ORDER BY Monetary DESC;
+
+-- ============================================
+-- 9. EMPLOYEE PERFORMANCE ANALYSIS
+-- ============================================
+CREATE TABLE EmployeePerformance AS
+SELECT 
+    e.EmployeeId,
+    e.FirstName || ' ' || e.LastName AS Employee_Name,
+    e.Title,
+    COUNT(DISTINCT c.CustomerId) AS Total_Customers_Supported,
+    COUNT(DISTINCT i.InvoiceId) AS Total_Sales,
+    ROUND(SUM(i.Total), 2) AS Total_Revenue_Generated,
+    ROUND(AVG(i.Total), 2) AS Avg_Sale_Value
+FROM 
+    employees e
+LEFT JOIN customers c ON e.EmployeeId = c.SupportRepId
+LEFT JOIN invoices i ON c.CustomerId = i.CustomerId
+GROUP BY 
+    e.EmployeeId, e.FirstName, e.LastName, e.Title
+ORDER BY 
+    Total_Revenue_Generated DESC;
+
+-- ============================================
+-- 10. CUSTOMER REPEAT PURCHASE RATIO
+-- ============================================
+CREATE TABLE RepeatRatioResult AS
+WITH CustomerPurchases AS (
+    SELECT 
+        CustomerId,
+        COUNT(DISTINCT InvoiceId) AS Purchase_Count
+    FROM invoices
+    GROUP BY CustomerId
+)
+SELECT 
+    ROUND(
+        CAST(SUM(CASE WHEN Purchase_Count > 1 THEN 1 ELSE 0 END) AS FLOAT) * 100.0 / 
+        COUNT(*), 2
+    ) AS Repeat_Purchase_Ratio
+FROM CustomerPurchases;
