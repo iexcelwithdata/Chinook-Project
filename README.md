@@ -13,7 +13,7 @@ The goal was to **uncover what drives customer purchases, predict customer value
 
 This project bridges the gap between **data analytics and business strategy**, showing how insights can translate directly into measurable impact.  
 
-![Executive Summary](./images/Exceutive%20Summary.png)
+![Executive Summary](./Images/Exceutive%20Summary.png)
 
 ---
 
@@ -133,7 +133,7 @@ By applying **data-driven marketing**, **cross-selling strategies**, and **genre
 
 ### 🖥️ Dashboard Preview  
 
-![Chinook Music Store Dashboard](./images/Chinook%20Music%20Store.png)
+![Chinook Music Store Dashboard](./Images/Chinook%20Music%20Store.png)
 
 <p align="center">
   <a href="./Chinook%20Project%20Dashboard.pdf" target="_blank">
@@ -145,7 +145,7 @@ By applying **data-driven marketing**, **cross-selling strategies**, and **genre
 
 ### 📑 PowerPoint Report  
 
-![Chinook Report Preview](./images/Chinook%20Report.png)
+![Chinook Report Preview](./Images/Chinook%20Report.png)
 
 <p align="center">
   <a href="./Insights%20Report/Chinook%20Report.pptx" target="_blank">
