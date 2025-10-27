@@ -13,7 +13,7 @@ The goal was to **uncover what drives customer purchases, predict customer value
 
 This project bridges the gap between **data analytics and business strategy**, showing how insights can translate directly into measurable impact.  
 
-![Executive Summary](./Images/Exceutive%20Summary.png)
+![Executive Summary](./Images/Exceutive%20Summary.png)  
 
 ---
 
