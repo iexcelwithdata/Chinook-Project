@@ -1,0 +1,60 @@
+CustomerId,Customer_Name,Country,Email,Total_Purchases,Total_Spent,Avg_Order_Value,Unique_Tracks_Purchased,First_Purchase_Date,Last_Purchase_Date,Customer_Segment
+6,Helena Holý,Czech Republic,hholy@gmail.com,7,502.62,13.23,38,2009-07-11,2013-11-13,High-Value
+26,Richard Cunningham,USA,ricunningham@hotmail.com,7,474.62,12.49,38,2009-11-07,2013-04-05,High-Value
+45,Ladislav Kovács,Hungary,ladislav_kovacs@apple.hu,7,446.62,11.75,38,2010-01-08,2013-07-20,High-Value
+46,Hugh O'Reilly,Ireland,hughoreilly@apple.ie,7,446.62,11.75,38,2009-02-03,2013-11-04,High-Value
+57,Luis Rojas,Chile,luisrojas@yahoo.cl,7,415.62,10.94,38,2009-04-04,2012-10-14,High-Value
+7,Astrid Gruber,Austria,astrid.gruber@apple.at,7,404.62,10.65,38,2009-12-08,2013-06-19,High-Value
+25,Victor Stevens,USA,vstevens@yahoo.com,7,404.62,10.65,38,2009-03-06,2013-12-05,High-Value
+37,Fynn Zimmermann,Germany,fzimmermann@yahoo.de,7,388.62,10.23,38,2009-01-19,2013-06-03,High-Value
+24,Frank Ralston,USA,fralston@gmail.com,7,378.62,9.96,38,2010-02-08,2013-08-20,High-Value
+5,František Wichterlová,Czech Republic,frantisekw@jetbrains.com,7,376.62,9.91,38,2009-12-08,2013-05-06,High-Value
+43,Isabelle Mercier,France,isabelle_mercier@apple.fr,7,376.62,9.91,38,2010-01-08,2013-06-06,High-Value
+28,Julia Barnett,USA,jubarnett@gmail.com,7,370.62,9.75,38,2009-11-07,2013-05-19,High-Value
+4,Bjørn Hansen,Norway,bjorn.hansen@yahoo.no,7,362.62,9.54,38,2009-01-02,2013-10-03,High-Value
+17,Jack Smith,USA,jacksmith@microsoft.com,7,352.62,9.28,38,2009-03-04,2012-07-31,High-Value
+34,João Fernandes,Portugal,jfernandes@yahoo.pt,7,352.62,9.28,38,2009-05-05,2012-10-01,High-Value
+48,Johannes Van der Berg,Netherlands,johavanderberg@yahoo.nl,7,352.62,9.28,38,2009-05-10,2013-09-12,High-Value
+44,Terhi Hämäläinen,Finland,terhi.hamalainen@apple.fi,7,350.62,9.23,38,2009-08-11,2013-12-14,High-Value
+15,Jennifer Peterson,Canada,jenniferp@rogers.ca,7,343.62,9.04,38,2009-06-05,2012-12-15,High-Value
+51,Joakim Johansson,Sweden,joakim.johansson@yahoo.se,7,340.62,8.96,38,2009-07-06,2012-12-02,High-Value
+1,Luís Gonçalves,Brazil,luisg@embraer.com.br,7,338.62,8.91,38,2010-03-11,2013-08-07,High-Value
+3,François Tremblay,Canada,ftremblay@gmail.com,7,338.62,8.91,38,2010-03-11,2013-09-20,High-Value
+20,Dan Miller,USA,dmiller@comcast.com,7,338.62,8.91,38,2010-05-12,2013-11-21,High-Value
+22,Heather Leacock,USA,hleacock@gmail.com,7,338.62,8.91,38,2010-02-08,2013-07-07,High-Value
+42,Wyatt Girard,France,wyatt.girard@yahoo.fr,7,338.62,8.91,38,2009-02-02,2013-11-03,High-Value
+40,Dominique Lefebvre,France,dominiquelefebvre@gmail.com,7,336.62,8.86,38,2009-02-01,2012-08-13,High-Value
+19,Tim Goyer,USA,tgoyer@apple.com,7,335.62,8.83,38,2009-03-04,2012-09-13,High-Value
+39,Camille Bernard,France,camille.bernard@yahoo.fr,7,335.62,8.83,38,2010-04-11,2013-09-07,High-Value
+58,Manoj Pareek,India,manoj.pareek@rediff.com,7,335.62,8.83,38,2010-06-12,2013-12-22,High-Value
+2,Leonie Köhler,Germany,leonekohler@surfeu.de,7,334.62,8.81,38,2009-01-01,2012-07-13,High-Value
+8,Daan Peeters,Belgium,daan_peeters@apple.be,7,334.62,8.81,38,2009-01-03,2013-10-04,High-Value
+9,Kara Nielsen,Denmark,kara.nielsen@jubii.dk,7,334.62,8.81,38,2009-09-06,2013-02-02,High-Value
+10,Eduardo Martins,Brazil,eduardo@woodstock.com.br,7,334.62,8.81,38,2009-04-09,2013-08-12,High-Value
+11,Alexandre Rocha,Brazil,alero@uol.com.br,7,334.62,8.81,38,2009-09-06,2013-03-18,High-Value
+12,Roberto Almeida,Brazil,roberto.almeida@riotur.gov.br,7,334.62,8.81,38,2009-05-23,2013-10-05,High-Value
+13,Fernanda Ramos,Brazil,fernadaramos4@uol.com.br,7,334.62,8.81,38,2009-06-05,2012-11-01,High-Value
+14,Mark Philips,Canada,mphilips12@shaw.ca,7,334.62,8.81,38,2009-01-06,2013-05-11,High-Value
+16,Frank Harris,USA,fharris@google.com,7,334.62,8.81,38,2009-02-19,2013-07-04,High-Value
+18,Michelle Brooks,USA,michelleb@aol.com,7,334.62,8.81,38,2010-05-12,2013-10-08,High-Value
+21,Kathy Chase,USA,kachase@hotmail.com,7,334.62,8.81,38,2009-03-05,2013-12-04,High-Value
+23,John Gordon,USA,johngordon22@yahoo.com,7,334.62,8.81,38,2009-01-11,2013-12-04,High-Value
+27,Patrick Gray,USA,patrick.gray@aol.com,7,334.62,8.81,38,2009-06-10,2013-10-13,High-Value
+29,Robert Brown,Canada,robbrown@shaw.ca,7,334.62,8.81,38,2009-07-24,2013-12-06,High-Value
+30,Edward Francis,Canada,edfrancis@yachoo.ca,7,334.62,8.81,38,2009-08-06,2013-01-02,High-Value
+31,Martha Silk,Canada,marthasilk@gmail.com,7,334.62,8.81,38,2009-03-09,2013-07-12,High-Value
+32,Aaron Mitchell,Canada,aaronmitchell@yahoo.ca,7,334.62,8.81,38,2009-08-06,2013-02-15,High-Value
+33,Ellie Sullivan,Canada,ellie.sullivan@shaw.ca,7,334.62,8.81,38,2009-04-22,2013-09-04,High-Value
+35,Madalena Sampaio,Portugal,masampaio@sapo.pt,7,334.62,8.81,38,2010-07-13,2013-12-09,High-Value
+36,Hannah Schneider,Germany,hannah.schneider@yahoo.de,7,334.62,8.81,38,2009-05-05,2012-11-14,High-Value
+38,Niklas Schröder,Germany,nschroder@surfeu.de,7,334.62,8.81,38,2009-02-01,2012-06-30,High-Value
+41,Marc Dubois,France,marc.dubois@hotmail.com,7,334.62,8.81,38,2010-04-11,2013-10-21,High-Value
+47,Lucas Mancini,Italy,lucas.mancini@yahoo.it,7,334.62,8.81,38,2009-10-07,2013-03-05,High-Value
+49,Stanisław Wójcik,Poland,stanisław.wójcik@wp.pl,7,334.62,8.81,38,2009-10-07,2013-04-18,High-Value
+50,Enrique Muñoz,Spain,enrique_munoz@yahoo.es,7,334.62,8.81,38,2009-06-23,2013-11-05,High-Value
+52,Emma Jones,United Kingdom,emma_jones@hotmail.com,7,334.62,8.81,38,2009-02-06,2013-06-11,High-Value
+53,Phil Hughes,United Kingdom,phil.hughes@gmail.com,7,334.62,8.81,38,2009-07-06,2013-01-15,High-Value
+54,Steve Murray,United Kingdom,steve.murray@yahoo.uk,7,334.62,8.81,38,2009-03-22,2013-08-04,High-Value
+55,Mark Taylor,Australia,mark.taylor@yahoo.au,7,334.62,8.81,38,2009-04-04,2012-08-31,High-Value
+56,Diego Gutiérrez,Argentina,diego.gutierrez@yahoo.ar,7,334.62,8.81,38,2010-06-12,2013-11-08,High-Value
+59,Puja Srivastava,India,puja_srivastava@yahoo.in,6,331.66,9.21,36,2009-04-05,2012-05-30,High-Value
