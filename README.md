@@ -37,9 +37,9 @@ The project followed a **data-to-insight pipeline** built around SQL, Python, an
 | Step | Description | Tools Used |
 |------|--------------|------------|
 | **1. Data Extraction & Cleaning** | Queried and cleaned the Chinook database using SQL. Handled nulls, joined tables, and created clean datasets for analysis. | SQL (CTEs, Window Functions, Joins) |
-| **2. Customer Segmentation (RFM)** | Segmented customers based on Recency, Frequency, and Monetary values to identify high-value clusters. | SQL, Power BI DAX |
-| **3. Customer Lifetime Value (CLV)** | Estimated long-term value of customers using historical purchase data. | SQL, Python |
-| **4. Market Basket Analysis** | Used association rule mining (Apriori algorithm) to uncover track and album pairings frequently bought together. | Python (Pandas, MLxtend) |
+| **2. Customer Segmentation (RFM)** | Segmented customers based on Recency, Frequency, and Monetary values to identify high-value clusters. | SQL, Power BI, DAX |
+| **3. Customer Lifetime Value (CLV)** | Estimated long-term value of customers using historical purchase data. | SQL, Power BI, DAX |
+| **4. Market Basket Analysis** | Used association rule mining (Apriori algorithm) to uncover track and album pairings frequently bought together. | Python (Pandas, MLxtend), SQL, Power BI |
 | **5. Visualization & Business Storytelling** | Designed a dynamic Power BI dashboard for executives and marketers to track trends and performance. | Power BI, DAX, Data Modeling |
 
 ---
